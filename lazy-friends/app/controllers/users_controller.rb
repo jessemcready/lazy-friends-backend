@@ -12,7 +12,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.find_or_create_by(user_params)
-    render json: @user, status: :created
+    if @user.save
+      render json: @user, status: :created
+    else
+      render json: {status: "error", code: 3000, message: @user.errors}
+    end
   end
 
   def update
@@ -24,7 +28,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :location, :coordinates)
+    params.require(:user).permit(:name, :email, :location, :coordinates, :username, :password)
   end
 
 end
