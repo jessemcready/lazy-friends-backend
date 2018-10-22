@@ -35,7 +35,7 @@ module LazyFriends
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options, :update, :delete]
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :options, :update, :delete]
       end
     end
   end

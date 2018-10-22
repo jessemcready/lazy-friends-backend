@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    render json: @users, status: :ok
+    render json: @users, except: :password, status: :ok
   end
 
   def show
@@ -23,6 +23,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     render json: @user, status: :ok
+  end
+
+  def login
+    @user = User.find_by(username: user_params[:username])
+    if @user
+      if @user.password == user_params[:password]
+        render json: @user, except: :password, status: :ok
+      else
+        render json: { status: 'error', code: '3100', message: 'Username or password invalid'}
+      end
+    else
+      render json: { status: 'error', code: '3100', message: 'Username or password invalid'}
+    end
   end
 
   private

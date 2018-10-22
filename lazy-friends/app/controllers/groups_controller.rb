@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all
-    render json: @groups, include: :users, status: :ok
+    render json: { groups: @groups.as_json( include: { users: { except: :password} } ) }
   end
 
   def show
@@ -17,9 +17,10 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    @group.users << group_params[:user]
+    user = User.find(update_group_params[:user])
+    @group.users << user
     @group.save
-    render json: @group, status: :ok
+    render json: @group, include: :users, status: :ok
   end
 
   def my_groups
@@ -30,6 +31,10 @@ class GroupsController < ApplicationController
   private
   def group_params
     params.require(:group).permit(:name, :user)
+  end
+
+  def update_group_params
+    params.permit(:user)
   end
 
 end
