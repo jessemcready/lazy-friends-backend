@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
+  skip_before_action :authorized, only: [:index, :show, :create, :profile]
 
   def index
     @users = User.all
     render json: @users, except: :password, status: :ok
+  end
+
+  def profile
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
   def show
@@ -11,14 +16,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
-    byebug
-    if @user.save
-      render json: { user: UserSerializer.new(@user) }, status: :created
+   @user = User.create(user_params)
+    if @user.valid?
+      @token = encode_token({ user_id: @user.id })
+      render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
       # render json: { user: @user.as_json(include: { groups: { include: { users: { except: :password } } } } ) }
     else
       render json: { error: 'failed to create user' }, status: :not_acceptable
-      # render json: {status: "error", code: 3000, message: @user.errors}
     end
   end
 
