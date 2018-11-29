@@ -11,11 +11,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.find_or_create_by(user_params)
+    @user = User.create(user_params)
+    byebug
     if @user.save
-      render json: { user: @user.as_json(include: { groups: { include: { users: { except: :password } } } } ) }
+      render json: { user: UserSerializer.new(@user) }, status: :created
+      # render json: { user: @user.as_json(include: { groups: { include: { users: { except: :password } } } } ) }
     else
-      render json: {status: "error", code: 3000, message: @user.errors}
+      render json: { error: 'failed to create user' }, status: :not_acceptable
+      # render json: {status: "error", code: 3000, message: @user.errors}
     end
   end
 
@@ -41,7 +44,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :location, :coordinates, :username, :password)
+    params.require(:user).permit(:name, :email, :location, :coordinates, :username, :password, :profile_url)
   end
 
 end
