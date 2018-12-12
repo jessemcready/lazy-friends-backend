@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  skip_before_action :authorized, only: [:index, :show, :create]
+  skip_before_action :authorized, only: [:index, :show, :create, :update]
 
   def index
     @groups = Group.all
@@ -13,6 +13,8 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.find_or_create_by(group_params)
+    user = User.find(params[:user])
+    @group.users << user
     render json: @group, status: :created
   end
 
