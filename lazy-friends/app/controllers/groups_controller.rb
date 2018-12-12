@@ -13,6 +13,8 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.find_or_create_by(group_params)
+    user = User.find(params[:user])
+    @group.users << user
     render json: @group, status: :created
   end
 
