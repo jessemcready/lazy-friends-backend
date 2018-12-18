@@ -14,6 +14,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.find_or_create_by(group_params)
     user = User.find(params[:user])
+    byebug
     @group.users << user
     render json: @group, status: :created
   end
@@ -33,7 +34,7 @@ class GroupsController < ApplicationController
 
   private
   def group_params
-    params.require(:group).permit(:name, :user)
+    params.require(:group).permit(:name, :user, :suggestions)
   end
 
   def update_group_params
