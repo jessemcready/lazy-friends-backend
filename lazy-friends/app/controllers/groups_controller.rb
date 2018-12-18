@@ -12,9 +12,12 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.find_or_create_by(group_params)
-    user = User.find(params[:user])
+    @group = Group.create(name: group_params[:name], suggestions: group_params[:suggestions], description: group_params[:description])
+    user = User.find(group_params[:user_id])
     @group.users << user
+    if !group_params[:suggestions]
+      @group.suggestions = 'bar'
+    end
     render json: @group, status: :created
   end
 
@@ -33,7 +36,7 @@ class GroupsController < ApplicationController
 
   private
   def group_params
-    params.require(:group).permit(:name, :user)
+    params.require(:group).permit(:name, :user_id, :suggestions, :description)
   end
 
   def update_group_params
