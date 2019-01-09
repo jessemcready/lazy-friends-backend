@@ -8,16 +8,16 @@ Event.destroy_all
 
 puts "MAKING USERS"
 User.create([
-{name:Faker::LordOfTheRings.character, email:Faker::Internet.free_email, location:'51 Grove St, New York, NY, 10014', username: 'user1', password: 'google12345', coordinates: '40.755, -73.972586', profile_url: Faker::Avatar.image},
-{name:Faker::LordOfTheRings.character, email:Faker::Internet.free_email, location:'361 W 17th St, New York, NY, 10011', username: 'user2', password: 'google12345', coordinates: '40.689550, -73.988260', profile_url: Faker::Avatar.image },
-{name:Faker::Seinfeld.character, email:Faker::Internet.free_email, location: '1031 Lexington Ave, New York, NY 10021', username: 'user3', password: 'google12345', coordinates: '40.776277, -73.955598', profile_url: Faker::Avatar.image},
-{name:Faker::Seinfeld.character, email:Faker::Internet.free_email, location: '238 Malcolm X Blvd, New York, NY 10027', username: 'user4', password: 'google12345', coordinates: '40.719206, -73.874849', profile_url: Faker::Avatar.image},
-{name:Faker::Lebowski.character, email:Faker::Internet.free_email, location: '33-12 23rd Ave, Astoria, NY 11105', username: 'user5', password: 'google12345', coordinates: '40.789875, -73.821785', profile_url: Faker::Avatar.image},
-{name:Faker::Lebowski.character, email:Faker::Internet.free_email, location: '31-12 31st Ave, Astoria, NY 11106', username: 'user6', password: 'google12345', coordinates: '40.794126, -73.968919', profile_url: Faker::Avatar.image},
-{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '4540 Center Blvd, Long Island City, NY 11109', username: 'user7', password: 'google12345', coordinates: '40.809181, -73.946095', profile_url: Faker::Avatar.image},
-{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '3 Milton St, Brooklyn, NY 11222', username: 'user8', password: 'google12345', coordinates: '40.706431, -73.956169', profile_url: Faker::Avatar.image},
-{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '166 S 4th St, Brooklyn, NY 11211', username: 'user9', password: 'google12345', coordinates: '40.666499, -73.981903', profile_url: Faker::Avatar.image},
-{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '514 Union St, Brooklyn, NY 11215', username: 'user10', password: 'google12345', coordinates: '40.767122, -73.928896', profile_url: Faker::Avatar.image}
+{name:Faker::LordOfTheRings.character, email:Faker::Internet.free_email, location:'51 Grove St, New York, NY, 10014', username: 'user1', password: 'google12345', coordinates: '40.7331814, -74.0058399', profile_url: Faker::Avatar.image},
+{name:Faker::LordOfTheRings.character, email:Faker::Internet.free_email, location:'182 Schermerhorn St, Brooklyn, NY 11201', username: 'user2', password: 'google12345', coordinates: '40.689550, -73.988260', profile_url: Faker::Avatar.image },
+{name:Faker::Seinfeld.character, email:Faker::Internet.free_email, location: '1031 Lexington Ave, New York, NY 10021', username: 'user3', password: 'google12345', coordinates: '40.7715401, -73.9634097', profile_url: Faker::Avatar.image},
+{name:Faker::Seinfeld.character, email:Faker::Internet.free_email, location: '238 Malcolm X Blvd, New York, NY 10027', username: 'user4', password: 'google12345', coordinates: '40.8057493, -73.9490605', profile_url: Faker::Avatar.image},
+{name:Faker::Lebowski.character, email:Faker::Internet.free_email, location: '33-12 23rd Ave, Astoria, NY 11105', username: 'user5', password: 'google12345', coordinates: '40.7732069, -73.913749', profile_url: Faker::Avatar.image},
+{name:Faker::Lebowski.character, email:Faker::Internet.free_email, location: '31-12 31st Ave, Astoria, NY 11106', username: 'user6', password: 'google12345', coordinates: '40.7638813, -73.9252604', profile_url: Faker::Avatar.image},
+{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '4540 Center Blvd, Long Island City, NY 11109', username: 'user7', password: 'google12345', coordinates: '40.7482059, -73.9591325', profile_url: Faker::Avatar.image},
+{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '3 Milton St, Brooklyn, NY 11222', username: 'user8', password: 'google12345', coordinates: '40.7290855, -73.9611639', profile_url: Faker::Avatar.image},
+{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '166 S 4th St, Brooklyn, NY 11211', username: 'user9', password: 'google12345', coordinates: '40.7111725, -73.9635538', profile_url: Faker::Avatar.image},
+{name:Faker::BojackHorseman.character, email:Faker::Internet.free_email, location: '514 Union St, Brooklyn, NY 11215', username: 'user10', password: 'google12345', coordinates: '40.678511, -73.9891987', profile_url: Faker::Avatar.image}
 ])
 puts 'DONE MAKING USERS'
 
