@@ -9,7 +9,6 @@ class FetchController < ApplicationController
     long = coordinates[1]
     term = params[:suggestions]
     api_key = Rails.application.credentials.yelp_api_key
-    byebug
     @response = RestClient.get "https://api.yelp.com/v3/businesses/search?term=food&latitude=#{lat}&longitude=#{long}&radius=750",  { :Authorization => "Bearer #{api_key}" }
     render json: @response, status: :ok
   end
