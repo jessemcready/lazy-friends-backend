@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  skip_before_action :authorized, only: [:index, :show, :create, :update]
+  skip_before_action :authorized, only: [:index, :show, :create, :update, :leave]
 
   def index
     @groups = Group.all
@@ -32,6 +32,14 @@ class GroupsController < ApplicationController
   def my_groups
     @user = User.find(params[:id])
     render json: @user.groups, status: :ok
+  end
+
+  def leave
+    @group = Group.find(params[:id])
+    user = User.find(update_group_params[:user])
+    @group.users.delete(user)
+    @group.save
+    render json: @group, status: :ok
   end
 
   private
