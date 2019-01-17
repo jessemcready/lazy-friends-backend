@@ -46,10 +46,8 @@ class UsersController < ApplicationController
   end
 
   def mailer
-    byebug
     @user = User.find(params[:id])
     message = params[:message]
-    byebug
     NotificationsMailer.group_invite(message).deliver_now
   end
 
