@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#create'
   get '/profile', to: 'users#profile'
   patch '/groups/:id/leave', to: 'groups#leave'
+  post '/mailer', to: 'users#mailer'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

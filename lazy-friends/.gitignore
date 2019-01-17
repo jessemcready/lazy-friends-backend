@@ -24,3 +24,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/credentials.yml.enc
+
+# Ignore ActionMailer Info
+/config/secrets.yml

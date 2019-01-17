@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:index, :show, :create, :profile, :update]
+  skip_before_action :authorized, only: [:index, :show, :create, :profile, :update, :mailer]
 
   def index
     @users = User.all
@@ -43,6 +43,14 @@ class UsersController < ApplicationController
     else
       render json: { status: 'error', code: '3100', message: 'Username or password invalid'}
     end
+  end
+
+  def mailer
+    byebug
+    @user = User.find(params[:id])
+    message = params[:message]
+    byebug
+    NotificationsMailer.group_invite(message).deliver_now
   end
 
   private
