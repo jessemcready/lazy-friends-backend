@@ -43,15 +43,39 @@ class GroupsController < ApplicationController
   end
 
   def event_invite
-    byebug
     @group = Group.find(params[:id])
-    byebug
     @group.users.each do |user|
       user_email = user.email
       message = params[:message]
       NotificationsMailer.event_invite(message, user_email).deliver_now
       byebug
     end
+  end
+
+  def create_group_event
+    @group = Group.find(params[:id])
+    @message = params[:message]
+    ical = Icalendar::Calendar.new
+    event_start = DateTime.new 2019, 5, 29, 8, 0, 0
+    event_end = DateTime.new 2019, 5, 30, 11, 0, 0
+    @location = "kalam ground,next to post office,Delhi-560234"
+    @summary = "Please Confirm Meeting"
+    @description = "Description is the pattern of development that 
+                    presents a word picture of a thing, a person,
+                    a situation, or a series of events."
+    ical = Icalendar::Calendar.new         
+    e = Icalendar::Event.new    
+    e.dtstart = Icalendar::Values::DateTime.new event_start
+    e.dtend   = Icalendar::Values::DateTime.new event_end
+    e.attendee  = @group.users.map do |user|
+      user.email
+    end
+    e.location = @location      
+    e.summary = @summary   
+    e.description = @description
+    ical.add_event(e)
+    byebug
+    NotificationsMailer.event_invite(@group, ical, @message).deliver_now
   end
 
   ###############################################################################
