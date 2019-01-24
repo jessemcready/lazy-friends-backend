@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  skip_before_action :authorized, only: [:index, :show, :create, :update, :leave]
+  skip_before_action :authorized, only: [:index, :show, :create, :update, :leave, :event_invite]
 
   def index
     @groups = Group.all
@@ -41,6 +41,20 @@ class GroupsController < ApplicationController
     @group.save
     render json: @group, status: :ok
   end
+
+  def event_invite
+    byebug
+    @group = Group.find(params[:id])
+    byebug
+    @group.users.each do |user|
+      user_email = user.email
+      message = params[:message]
+      NotificationsMailer.event_invite(message, user_email).deliver_now
+      byebug
+    end
+  end
+
+  ###############################################################################
 
   private
   def group_params
