@@ -44,38 +44,31 @@ class GroupsController < ApplicationController
 
   def event_invite
     @group = Group.find(params[:id])
-    @group.users.each do |user|
-      user_email = user.email
-      message = params[:message]
-      NotificationsMailer.event_invite(message, user_email).deliver_now
-      byebug
-    end
-  end
-
-  def create_group_event
-    @group = Group.find(params[:id])
-    @message = params[:message]
+    @user = User.find(params[:user_id])
     ical = Icalendar::Calendar.new
-    event_start = DateTime.new 2019, 5, 29, 8, 0, 0
-    event_end = DateTime.new 2019, 5, 30, 11, 0, 0
-    @location = "kalam ground,next to post office,Delhi-560234"
-    @summary = "Please Confirm Meeting"
-    @description = "Description is the pattern of development that 
-                    presents a word picture of a thing, a person,
-                    a situation, or a series of events."
-    ical = Icalendar::Calendar.new         
+    event_start = DateTime.new 2019, 1, 29, 8, 0, 0
+    event_end = DateTime.new 2019, 1, 29, 11, 0, 0
+    @location = params[:location]
+    @summary = "Join Us"
+    @description = "#{@group.name} is trying to meet up. Come hang out."      
     e = Icalendar::Event.new    
     e.dtstart = Icalendar::Values::DateTime.new event_start
     e.dtend   = Icalendar::Values::DateTime.new event_end
     e.attendee  = @group.users.map do |user|
-      user.email
+      "mailto:#{user.email}"
     end
     e.location = @location      
     e.summary = @summary   
     e.description = @description
+    e.organizer = "mailto:#{@user.email}"
+    e.organizer = Icalendar::Values::CalAddress.new(@user.name, cn: 'Organizer')
+    ical.append_custom_property('METHOD', 'REQUEST')
     ical.add_event(e)
-    byebug
-    NotificationsMailer.event_invite(@group, ical, @message).deliver_now
+    @group.users.each do |user|
+      user_email = user.email
+      message = params[:message]
+      NotificationsMailer.event_invite(message, ical, user_email).deliver_now
+    end
   end
 
   ###############################################################################
