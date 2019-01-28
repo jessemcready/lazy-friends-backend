@@ -44,10 +44,30 @@ class GroupsController < ApplicationController
 
   def event_invite
     @group = Group.find(params[:id])
+    @user = User.find(params[:user_id])
+    ical = Icalendar::Calendar.new
+    event_start = DateTime.new 2019, 1, 29, 8, 0, 0
+    event_end = DateTime.new 2019, 1, 29, 11, 0, 0
+    @location = params[:location]
+    @summary = "Join Us"
+    @description = "#{@group.name} is trying to meet up. Come hang out."
+    e = Icalendar::Event.new
+    e.dtstart = Icalendar::Values::DateTime.new event_start
+    e.dtend   = Icalendar::Values::DateTime.new event_end
+    e.attendee  = @group.users.map do |user|
+      "mailto:#{user.email}"
+    end
+    e.location = @location
+    e.summary = @summary
+    e.description = @description
+    e.organizer = "mailto:#{@user.email}"
+    e.organizer = Icalendar::Values::CalAddress.new(@user.name, cn: 'Organizer')
+    ical.append_custom_property('METHOD', 'REQUEST')
+    ical.add_event(e)
     @group.users.each do |user|
       user_email = user.email
       message = params[:message]
-      NotificationsMailer.event_invite(message, user_email).deliver_now
+      NotificationsMailer.event_invite(message, ical, user_email).deliver_now
     end
   end
 

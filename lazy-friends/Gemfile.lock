@@ -69,6 +69,9 @@ GEM
       domain_name (~> 0.5)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
+    icalendar (2.5.2)
+      ice_cube (~> 0.16)
+    ice_cube (0.16.3)
     jsonapi-renderer (0.2.0)
     jwt (2.1.0)
     listen (3.1.5)
@@ -166,6 +169,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   faker
+  icalendar
   jwt (~> 2.1)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
@@ -181,4 +185,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.16.3
+   1.17.3
