@@ -43,14 +43,11 @@ class GroupsController < ApplicationController
   end
 
   def event_invite
-    byebug
     @group = Group.find(params[:id])
-    byebug
     @group.users.each do |user|
       user_email = user.email
       message = params[:message]
       NotificationsMailer.event_invite(message, user_email).deliver_now
-      byebug
     end
   end
 
